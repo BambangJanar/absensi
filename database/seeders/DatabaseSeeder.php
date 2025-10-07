@@ -2,21 +2,39 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Employee; // Pastikan ini di-import
+use App\Models\User;     // Pastikan ini di-import
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash; // Pastikan ini di-import
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // Membuat 1 User Admin
+        // Kita tidak perlu membuat data employee untuk admin
+        User::factory()->create([
+            'name' => 'Admin Utama',
+            'email' => 'admin@gmail.com',
+            'role' => 'admin',
+            'password' => Hash::make('password'),
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Membuat 1 User Karyawan untuk testing dengan data employee
+        User::factory()->has(Employee::factory()->state([
+            'nama_lengkap' => 'Karyawan Test',
+            'nip' => '199001012020121001'
+        ]))->create([
+            'name' => 'Karyawan Test',
+            'email' => 'karyawan@gmail.com',
+            'role' => 'karyawan',
+            'password' => Hash::make('password'),
+        ]);
+
+
+        // Membuat 10 Karyawan dummy menggunakan factory
+        // has(Employee::factory()) akan otomatis membuat data employee
+        // untuk setiap user yang dibuat dan mengisikan user_id-nya.
+        User::factory(10)->has(Employee::factory())->create();
     }
 }
