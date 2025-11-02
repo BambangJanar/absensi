@@ -27,10 +27,6 @@
                             {{ __('Manajemen Pengguna') }}
                         </x-nav-link>
 
-                        {{-- PLACEHOLDER Admin: Absensi, Karyawan, Laporan --}}
-                        <x-nav-link :href="'#'">
-                            {{ __('Absensi Harian') }}
-                        </x-nav-link>
                         <x-nav-link :href="'#'">
                             {{ __('Laporan') }}
                         </x-nav-link>
@@ -42,9 +38,6 @@
                             {{ __('Dashboard') }}
                         </x-nav-link>
                         <x-nav-link :href="route('attendance.index')" :active="request()->routeIs('attendance.*')">
-                            {{ __('Absensi Saya') }}
-                        </x-nav-link>
-                        <x-nav-link :href="'#'">
                             {{ __('Riwayat Absensi') }}
                         </x-nav-link>
                     @endif
